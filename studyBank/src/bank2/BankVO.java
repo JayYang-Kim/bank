@@ -1,6 +1,7 @@
 package bank2;
 
 public class BankVO {
+	private String id; // 아이디
 	private String bank; // 은행사
 	private String passWord; // 비밀번호
 	private String name; // 이름
@@ -8,6 +9,12 @@ public class BankVO {
 	private int balance; // 잔액
 	private String createDay; // 생성일
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getBank() {
 		return bank;
 	}

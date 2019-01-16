@@ -12,9 +12,15 @@ public class BankApp {
 		System.out.println("====================================================================================================");
 	}
 	
-	private static void menuAdmin() {
+	private static void menuLogin() {
 		System.out.println("====================================================================================================");
-		System.out.println("[1.입금] [2.출금] [3.송금] [4.계좌 조회] [5.계좌 삭제] [6.로그아웃] [7.종료]");
+		System.out.println("[1.입금] [2.출금] [3.송금] [4.정보수정] [5.계좌 조회] [6.계좌 삭제] [7.로그아웃] [8.종료]");
+		System.out.println("====================================================================================================");
+	}
+	
+	private static void menuLoginAdmin() {
+		System.out.println("====================================================================================================");
+		System.out.println("[1.계좌 조회] [2.로그아웃] [3.종료]");
 		System.out.println("====================================================================================================");
 	}
 	
@@ -54,20 +60,20 @@ public class BankApp {
 					e.printStackTrace();
 				}
 			// 작업 선택 영역 (로그인)
-			} else {
+			} else if (!bs.loginCheck().getId().equals("admin")) {
 				System.out.println();
 				System.out.println("====================================================================================================");
-				System.out.println(bs.loginCheck().getName() + "님 환영합니다.");
+				System.out.println(bs.loginCheck().getId() + "님 환영합니다.");
 				
 				// 작업 선택 영역 (로그인)
 				try {
 					do {
-						menuAdmin();
+						menuLogin();
 						select = Integer.parseInt(br.readLine());
-					} while(select < 1 || select > 7); // 1 ~ 6 사이값이 아닐 경우 재입력 처리
+					} while(select < 1 || select > 8); // 1 ~ 8 사이값이 아닐 경우 재입력 처리
 					
 					// 종료 처리
-					if (select == 7) {
+					if (select == 8) {
 						menuExit();
 						break; // 무한 루프 벗어나기 (while문을 벗어남)
 					}
@@ -76,14 +82,40 @@ public class BankApp {
 					case 1 : bs.deposit(); break;
 					case 2 : bs.withdraw(); break;
 					case 3 : bs.remit(); break;
-					case 4 : bs.selectAccount(); break;
-					case 5 : bs.delete(); break;
-					case 6 : bs.logout(); break;
+					case 4 : bs.update(); break;
+					case 5 : bs.selectAccount(); break;
+					case 6 : bs.delete(); break;
+					case 7 : bs.logout(); break;
 					}	
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			} // else
+			} else if (bs.loginCheck().getId().equals("admin")) {
+				System.out.println();
+				System.out.println("====================================================================================================");
+				System.out.println(bs.loginCheck().getId() + "님 환영합니다.");
+				
+				// 작업 선택 영역 (로그인)
+				try {
+					do {
+						menuLoginAdmin();
+						select = Integer.parseInt(br.readLine());
+					} while(select < 1 || select > 3); // 1 ~ 8 사이값이 아닐 경우 재입력 처리
+					
+					// 종료 처리
+					if (select == 3) {
+						menuExit();
+						break; // 무한 루프 벗어나기 (while문을 벗어남)
+					}
+					
+					switch (select) {
+					case 1 : bs.selectAccount(); break;
+					case 2 : bs.logout(); break;
+					}	
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} // esle if
 		} // while
 	} // main()
 
